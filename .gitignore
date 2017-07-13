@@ -7,3 +7,4 @@ firestorm.log*
 .DS_Store
 *.bak
 /src/META-INF
+/classes
