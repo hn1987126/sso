@@ -9,14 +9,13 @@ import com.jd.ark.auth.sso.model.DotnetAuthTicket;
 import com.jd.ark.auth.sso.model.TicketHolder;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.jd.ark.auth.sso.model.DotnetAuthenticationTicket;
 
 public class DotnetTicketContextInterceptor extends HandlerInterceptorAdapter {
 
-	private String appId;
-	private String secret;
-	private String authUrl;
-	private String cookieName;
+	private String appId = "sso.client.app.id";
+	private String secret = "Z5F8BG2A7JT2860T1400";
+	private String authUrl = "http://ssa.jd.com/sso/ticket/verifyTicket";
+	private String cookieName = "sso.jd.com";
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)

@@ -10,7 +10,7 @@ import com.jd.ark.auth.sso.model.TicketHolder;
 
 public class LoginRequiredInterceptor extends HandlerInterceptorAdapter {
 
-	String ssoLoginUrl;
+	String ssoLoginUrl = "http://ssa.jd.com/sso/login";
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)

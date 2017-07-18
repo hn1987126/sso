@@ -9,7 +9,6 @@ import com.jd.ark.auth.sso.model.DotnetAuthTicket;
 import org.springframework.web.client.RestTemplate;
 
 import com.alibaba.fastjson.JSONObject;
-import com.jd.ark.auth.sso.model.DotnetAuthenticationTicket;
 
 public class CookieUtils {
 
@@ -49,30 +48,6 @@ public class CookieUtils {
 		dotnetAuthTicket.setUsername(user.getString("username"));
 		dotnetAuthTicket.setExpire(user.getIntValue("expire"));
 		return dotnetAuthTicket;
-	}
-
-	public static DotnetAuthenticationTicket getTicket(String url, String token, String secret, String appId)
-			throws Exception {
-		RestTemplate restTemplate = SimpleRestClient.getClient();
-		long timestamp = System.currentTimeMillis()/1000;
-		String reqStr = appId + "#" + secret + "#" + timestamp;
-		String sign = md5(reqStr);
-		url = url + "?app_id={appId}&sign={sign}&timestamp={timestamp}&token={token}";
-		String result = restTemplate.getForObject(url, String.class, appId, sign, timestamp, token);
-		JSONObject data = JSONObject.parseObject(result);
-		if (data.getInteger("status") != 1) {
-			return null;
-		}
-		JSONObject user = data.getJSONObject("data");
-		DotnetAuthenticationTicket dotnetAuthenticationTicket = new DotnetAuthenticationTicket();
-		dotnetAuthenticationTicket.setUser_id(user.getIntValue("user_id"));
-		dotnetAuthenticationTicket.setUsername(user.getString("username"));
-		dotnetAuthenticationTicket.setUsername_cn(user.getString("username_cn"));
-		dotnetAuthenticationTicket.setDepart_node_id(user.getIntValue("depart_node_id"));
-		dotnetAuthenticationTicket.setEmail_address(user.getString("email_address"));
-		dotnetAuthenticationTicket.setMobile_phone_number(user.getString("mobile_phone_number"));
-		dotnetAuthenticationTicket.setIm_account(user.getString("im_account"));
-		return dotnetAuthenticationTicket;
 	}
 
 	public static String md5(String input) throws NoSuchAlgorithmException {
